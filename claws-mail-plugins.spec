@@ -1,11 +1,11 @@
 %define oname claws-mail
-%define claws_version 2.8.0
+%define claws_version 2.9.1
 %define cvs %nil
 
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
-Version:    2.8.0
-Release:    %mkrel 3
+Version:    2.9.1
+Release:    %mkrel 1
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
@@ -345,15 +345,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc cachesaver*/INSTALL 
 %{_libdir}/%{oname}/plugins/cachesaver*
 
-%files -n %{oname}-etpan-privacy-plugin
-%defattr(-,root,root)
-%doc etpan-privacy*/AUTHORS
-%doc etpan-privacy*/COPYING
-%doc etpan-privacy*/ChangeLog
-%doc etpan-privacy*/INSTALL 
-%doc etpan-privacy*/README
-%{_libdir}/%{oname}/plugins/etpan*
-
 %files -n %{oname}-fetchinfo-plugin
 %defattr(-,root,root)
 %doc fetchinfo*/COPYING
@@ -361,16 +352,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc fetchinfo*/INSTALL 
 %doc fetchinfo*/README 
 %{_libdir}/%{oname}/plugins/fetchinfo*
-
-%files -n %{oname}-maildir-plugin
-%defattr(-,root,root)
-%doc maildir*/AUTHORS
-%doc maildir*/COPYING
-%doc maildir*/ChangeLog
-%doc maildir*/INSTALL
-%doc maildir*/NEWS
-%doc maildir*/README  
-%{_libdir}/%{oname}/plugins/maildir*
 
 %files -n %{oname}-mailmbox-plugin
 %defattr(-,root,root)
