@@ -381,6 +381,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc notif*/NEWS
 %doc notif*/README 
 %{_libdir}/%{oname}/plugins/noti*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/notification_plugin.mo
 
 %files -n %{oname}-perl-plugin
 %defattr(-,root,root)
