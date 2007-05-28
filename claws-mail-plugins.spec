@@ -4,7 +4,7 @@
 
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
-Version:    2.9.1
+Version:    %{claws_version}
 Release:    %mkrel 1
 Group:      Networking/Mail
 License:    GPL
