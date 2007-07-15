@@ -23,6 +23,7 @@ BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
 BuildRequires:	libpoppler-devel
+BuildRequires:	poppler
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
 
