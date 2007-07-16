@@ -24,6 +24,7 @@ BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
 BuildRequires:	libpoppler-devel
 BuildRequires:	poppler
+BuildRequires:  libpopplerglib-devel
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
 
