@@ -43,7 +43,8 @@ This package contains additional plugins for %{oname}:
 %{oname}-smime-plugin,
 %{oname}-synce-plugin,
 %{oname}-vcalendar-plugin,
-%{oname}-pdfviewer-plugin.
+%{oname}-pdfviewer-plugin,
+%{oname}-spamreport-plugin.
 
 %package -n %{oname}-acpi-plugin
 Summary:    This plugin enables mail notification via LEDs on some laptops
@@ -255,6 +256,18 @@ Obsoletes:      sylpheed-claws-pdf_viewer-plugin
 %description -n %{oname}-pdf_viewer-plugin
 This %{oname} plugin provides pdf_viewer.
 
+%package -n %{oname}-spam_report-plugin
+Summary:        This plugin for %{oname} enables spamreport
+Group:          Networking/Mail
+Requires:       %{oname} >= %{claws_version}
+Provides:       sylpheed-claws2-spam_report-plugin
+Obsoletes:      sylpheed-claws2-spam_report-plugin
+Provides:       sylpheed-claws-spam_report-plugin
+Obsoletes:      sylpheed-claws-spam_report-plugin
+
+%description -n %{oname}-spam_report-plugin
+This %{oname} plugin provides spamreport.
+
 %prep
 %setup -q -c
 
@@ -300,6 +313,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-rssyl-plugin
 %find_lang  %{oname}-attachwarner-plugin
 %find_lang  %{oname}-pdf_viewer-plugin
+%find_lang  %{oname}-spam_report-plugin
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -450,5 +464,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/%{oname}/plugins/pdf_viewer*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/pdf_viewer.mo
+
+%files -n %{oname}-spam_report-plugin -f %{oname}-spam_report-plugin.lang
+%defattr(-,root,root)
+%{_libdir}/%{oname}/plugins/spamreport*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/spam_report.mo
 
 
