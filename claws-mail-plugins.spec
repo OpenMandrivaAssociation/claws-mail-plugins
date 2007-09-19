@@ -9,22 +9,26 @@ Release:    %mkrel 1
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
-Source:     %{oname}-extra-plugins-%{version}%{cvs}.tar.bz2  
+Source:     %{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
 Buildroot:  %{_tmppath}/%{name}-buildroot
-BuildRequires:  claws-mail-devel >= %{claws_version} 
-BuildRequires:  claws-mail >= %{claws_version} 
+BuildRequires:  claws-mail-devel >= %{claws_version}
+BuildRequires:  claws-mail >= %{claws_version}
 BuildRequires:  libsynce-devel
-BuildRequires:  libetpan-devel 
+BuildRequires:  libetpan-devel
 BuildRequires:  perl-devel
 BuildRequires:  curl-devel
 BuildRequires:  byacc
 BuildRequires:  flex
 BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
+%if %mdkversion >= 200800
 BuildRequires:  librapi-devel
 BuildRequires:	libpoppler-devel
 BuildRequires:	poppler
 BuildRequires:  libpopplerglib-devel
+#%else
+BuildRequires:  libpoppler1-devel
+%endif
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
 
@@ -79,7 +83,7 @@ Obsoletes:  sylpheed-claws-cachesaver-plugin
 
 %description -n %{oname}-cachesaver-plugin
 This plugin for %{oname} saves the caches every minute. It helps
-in avoiding the loss of metadata on crashes. 
+in avoiding the loss of metadata on crashes.
 
 %package -n %{oname}-etpan-privacy-plugin
 Summary:    This plugin handles verification and decryption of encrypted messages
@@ -285,7 +289,7 @@ for i in `find ./* -maxdepth 0  -type d`
     %make
     cd -
 done
- 
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
@@ -302,14 +306,14 @@ done
 rm -rf ${RPM_BUILD_ROOT}/%{_libdir}/%{oname}/plugins/*.a
 #CAE have to rm to prevent conflict libical-devel
 #Handled upstream
-#rm -f ${RPM_BUILD_ROOT}/%{_includedir}/ical.h 
- 
+#rm -f ${RPM_BUILD_ROOT}/%{_includedir}/ical.h
+
 # fix permissions
 chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NEWS vcalendar*/README
 
-%find_lang  %{oname}-acpi-plugin 
-%find_lang  %{oname}-gtkhtml2_viewer-plugin 
-%find_lang  %{oname}-vcalendar-plugin 
+%find_lang  %{oname}-acpi-plugin
+%find_lang  %{oname}-gtkhtml2_viewer-plugin
+%find_lang  %{oname}-vcalendar-plugin
 %find_lang  %{oname}-rssyl-plugin
 %find_lang  %{oname}-attachwarner-plugin
 %find_lang  %{oname}-pdf_viewer-plugin
@@ -329,7 +333,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc acpi*/README
 %{_libdir}/%{oname}/plugins/acpi*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/acpi_notifier.mo
- 
+
 
 %files -n %{oname}-att_remover-plugin
 %defattr(-,root,root)
@@ -338,7 +342,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc att_remover*/ChangeLog
 %doc att_remover*/INSTALL
 %doc att_remover*/NEWS
-%doc att_remover*/README 
+%doc att_remover*/README
 %{_libdir}/%{oname}/plugins/att_remover*
 
 %files -n %{oname}-attachwarner-plugin
@@ -354,27 +358,27 @@ rm -rf $RPM_BUILD_ROOT
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/attach*.mo
 
 %files -n %{oname}-cachesaver-plugin
-%defattr(-,root,root) 
+%defattr(-,root,root)
 %doc cachesaver*/AUTHORS
 %doc cachesaver*/COPYING
 %doc cachesaver*/ChangeLog
-%doc cachesaver*/INSTALL 
+%doc cachesaver*/INSTALL
 %{_libdir}/%{oname}/plugins/cachesaver*
 
 %files -n %{oname}-fetchinfo-plugin
 %defattr(-,root,root)
 %doc fetchinfo*/COPYING
-%doc fetchinfo*/ChangeLog 
-%doc fetchinfo*/INSTALL 
-%doc fetchinfo*/README 
+%doc fetchinfo*/ChangeLog
+%doc fetchinfo*/INSTALL
+%doc fetchinfo*/README
 %{_libdir}/%{oname}/plugins/fetchinfo*
 
 %files -n %{oname}-mailmbox-plugin
 %defattr(-,root,root)
 %doc mailmbox*/AUTHORS
-%doc mailmbox*/COPYING 
+%doc mailmbox*/COPYING
 %doc mailmbox*/ChangeLog
-%doc mailmbox*/INSTALL 
+%doc mailmbox*/INSTALL
 %doc mailmbox*/README
 %{_libdir}/%{oname}/plugins/mailmbox*
 
@@ -395,7 +399,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc notif*/ChangeLog
 %doc notif*/INSTALL
 %doc notif*/NEWS
-%doc notif*/README 
+%doc notif*/README
 %{_libdir}/%{oname}/plugins/noti*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/notification_plugin.mo
 
@@ -407,7 +411,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc perl*/INSTALL
 %doc perl*/NEWS
 %doc perl*/README
-%doc perl*/sc_perl.pod 
+%doc perl*/sc_perl.pod
 %{_libdir}/%{oname}/plugins/perl*
 
 %files -n %{oname}-rssyl-plugin -f %{oname}-rssyl-plugin.lang
@@ -415,16 +419,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc rssyl*/COPYING
 %doc rssyl*/ChangeLog
 %doc rssyl*/INSTALL
-%doc rssyl*/NEWS 
+%doc rssyl*/NEWS
 %{_libdir}/%{oname}/plugins/rssyl*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/rssyl.mo
- 
+
 %files -n %{oname}-smime-plugin
 %defattr(-,root,root)
 %doc smim*/COPYING
 %doc smim*/ChangeLog
 %doc smim*/INSTALL
-%doc smim*/NEWS 
+%doc smim*/NEWS
 %doc smim*/README
 %{_libdir}/%{oname}/plugins/smim*
 
@@ -432,9 +436,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc synce*/AUTHORS
 %doc synce*/COPYING
-%doc synce*/ChangeLog 
+%doc synce*/ChangeLog
 %doc synce*/NEWS
-%doc synce*/README 
+%doc synce*/README
 %{_libdir}/%{oname}/plugins/synce*
 
 %files -n %{oname}-vcalendar-plugin
@@ -444,10 +448,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc vcalendar*/ChangeLog
 %doc vcalendar*/INSTALL
 %doc vcalendar*/NEWS
-%doc vcalendar*/README 
+%doc vcalendar*/README
 %{_libdir}/%{oname}/plugins/vcalendar*
 %{_includedir}/ical.h
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/vcalendar.mo 
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/vcalendar.mo
 
 %files -n %{oname}-gtkhtml2_viewer-plugin -f %{oname}-gtkhtml2_viewer-plugin.lang
 %defattr(-,root,root)
