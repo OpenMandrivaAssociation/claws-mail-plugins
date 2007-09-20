@@ -1,5 +1,5 @@
 %define oname claws-mail
-%define claws_version 3.0.0
+%define claws_version 3.0.1
 %define cvs %nil
 
 Summary:    This package contains additional plugins for %{oname}
