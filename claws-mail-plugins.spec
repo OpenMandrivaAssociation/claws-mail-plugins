@@ -11,8 +11,8 @@ License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
 Source:     %{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
 Buildroot:  %{_tmppath}/%{name}-buildroot
-BuildRequires:  claws-mail-devel = %{claws_version}
-BuildRequires:  claws-mail = %{claws_version}
+BuildRequires:  claws-mail-devel = 1:%{claws_version}
+BuildRequires:  claws-mail = 1:%{claws_version}
 BuildRequires:  libsynce-devel
 BuildRequires:  libetpan-devel
 BuildRequires:  perl-devel
@@ -22,12 +22,11 @@ BuildRequires:  flex
 BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
 %if %mdkversion >= 200800
-BuildRequires:  librapi-devel
 BuildRequires:	libpoppler-devel
-BuildRequires:	poppler
-BuildRequires:  libpopplerglib-devel
-#%else
-BuildRequires:  libpoppler1-devel
+BuildRequires:  librapi-devel
+BuildRequires:  libpoppler-glib-devel
+%else
+BuildRequires:	libpoppler1-devel
 %endif
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
