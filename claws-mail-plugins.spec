@@ -5,7 +5,7 @@
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
 Version:    %{claws_version}
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
@@ -21,9 +21,9 @@ BuildRequires:  byacc
 BuildRequires:  flex
 BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
+BuildRequires:  librapi-devel
 %if %mdkversion >= 200800
 BuildRequires:	libpoppler-devel
-BuildRequires:  librapi-devel
 BuildRequires:  libpoppler-glib-devel
 %else
 BuildRequires:	libpoppler1-devel
