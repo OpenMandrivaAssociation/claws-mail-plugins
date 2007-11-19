@@ -1,5 +1,5 @@
 %define oname claws-mail
-%define claws_version 3.0.2
+%define claws_version 3.1.0
 %define cvs %nil
 
 Summary:    This package contains additional plugins for %{oname}
@@ -22,6 +22,9 @@ BuildRequires:  flex
 BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
+%if %mdkversion > 201000
+BuildRequires:  ytnef-devel
+%endif
 %if %mdkversion >= 200800
 BuildRequires:	libpoppler-devel
 BuildRequires:  libpoppler-glib-devel
@@ -47,7 +50,8 @@ This package contains additional plugins for %{oname}:
 %{oname}-synce-plugin,
 %{oname}-vcalendar-plugin,
 %{oname}-pdfviewer-plugin,
-%{oname}-spamreport-plugin.
+%{oname}-spamreport-plugin,
+%{oname}-tnefparse-plugin.
 
 %package -n %{oname}-acpi-plugin
 Summary:    This plugin enables mail notification via LEDs on some laptops
@@ -271,11 +275,30 @@ Obsoletes:      sylpheed-claws-spam_report-plugin
 %description -n %{oname}-spam_report-plugin
 This %{oname} plugin provides spamreport.
 
+%if %mdkversion > 201000
+%package -n %{oname}-tnef_parse-plugin
+Summary:        This plugin for %{oname} enables parsing MS-TNEF attachments
+Group:          Networking/Mail
+Requires:       %{oname} >= %{claws_version}
+Provides:       sylpheed-claws2-tnef_parse-plugin
+Obsoletes:      sylpheed-claws2-tnef_parse-plugin
+Provides:       sylpheed-claws-tnef_parse-plugin
+Obsoletes:      sylpheed-claws-tnef_parse-plugin
+
+%description -n %{oname}-tnef_parse-plugin
+This %{oname} plugin enables parsing MS-TNEF attachments
+%endif
+
 %prep
 %setup -q -c
 
 %build
 cd claws-mail-extra-plugins-%{version}
+
+%if %mdkversion <= 201000
+rm -r tnef_parse*
+%endif
+
 mv ./* ../
 cd -
 rmdir claws-mail-extra-plugins-%{version}
@@ -317,6 +340,9 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-attachwarner-plugin
 %find_lang  %{oname}-pdf_viewer-plugin
 %find_lang  %{oname}-spam_report-plugin
+%if %mdkversion > 201000
+%find_lang  %{oname}-tnef_parse-plugin
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -410,7 +436,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc perl*/INSTALL
 %doc perl*/NEWS
 %doc perl*/README
-%doc perl*/sc_perl.pod
+%doc perl*/cm_perl.pod
 %{_libdir}/%{oname}/plugins/perl*
 
 %files -n %{oname}-rssyl-plugin -f %{oname}-rssyl-plugin.lang
@@ -473,4 +499,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{oname}/plugins/spamreport*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/spam_report.mo
 
+%if %mdkversion > 201000
+%files -n %{oname}-tnef_parse-plugin -f %{oname}-tnef_parse-plugin.lang
+%defattr(-,root,root)
+%{_libdir}/%{oname}/plugins/tnef_parse*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/tnef_parse.mo
+%endif
 
