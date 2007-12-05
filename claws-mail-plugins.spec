@@ -5,7 +5,7 @@
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
 Version:    %{claws_version}
-Release:    %mkrel 2
+Release:    %mkrel 3
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
@@ -22,8 +22,8 @@ BuildRequires:  flex
 BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
-%if %mdkversion > 201000
-BuildRequires:  ytnef-devel
+%if %mdkversion > 200800
+BuildRequires:  libytnef-devel
 %endif
 %if %mdkversion >= 200800
 BuildRequires:	libpoppler-devel
@@ -275,7 +275,7 @@ Obsoletes:      sylpheed-claws-spam_report-plugin
 %description -n %{oname}-spam_report-plugin
 This %{oname} plugin provides spamreport.
 
-%if %mdkversion > 201000
+%if %mdkversion > 200800
 %package -n %{oname}-tnef_parse-plugin
 Summary:        This plugin for %{oname} enables parsing MS-TNEF attachments
 Group:          Networking/Mail
@@ -295,7 +295,7 @@ This %{oname} plugin enables parsing MS-TNEF attachments
 %build
 cd claws-mail-extra-plugins-%{version}
 
-%if %mdkversion <= 201000
+%if %mdkversion <= 200800
 rm -r tnef_parse*
 %endif
 
@@ -340,7 +340,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-attachwarner-plugin
 %find_lang  %{oname}-pdf_viewer-plugin
 %find_lang  %{oname}-spam_report-plugin
-%if %mdkversion > 201000
+%if %mdkversion > 200800
 %find_lang  %{oname}-tnef_parse-plugin
 %endif
 
@@ -499,7 +499,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{oname}/plugins/spamreport*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/spam_report.mo
 
-%if %mdkversion > 201000
+%if %mdkversion > 200800
 %files -n %{oname}-tnef_parse-plugin -f %{oname}-tnef_parse-plugin.lang
 %defattr(-,root,root)
 %{_libdir}/%{oname}/plugins/tnef_parse*
