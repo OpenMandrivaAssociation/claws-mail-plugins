@@ -10,7 +10,6 @@ Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
 Source:     %{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
-Buildroot:  %{_tmppath}/%{name}-buildroot
 BuildRequires:  claws-mail-devel = 1:%{claws_version}
 BuildRequires:  claws-mail = 1:%{claws_version}
 BuildRequires:  libsynce-devel
