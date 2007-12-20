@@ -28,7 +28,7 @@ BuildRequires:  libytnef-devel
 BuildRequires:	libpoppler-devel
 BuildRequires:  libpoppler-glib-devel
 %else
-BuildRequires:	libpoppler1-devel
+BuildRequires:	libpoppler-devel
 %endif
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
