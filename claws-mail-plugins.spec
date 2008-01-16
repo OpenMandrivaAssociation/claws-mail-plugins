@@ -474,7 +474,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc vcalendar*/NEWS
 %doc vcalendar*/README
 %{_libdir}/%{oname}/plugins/vcalendar*
-%{_includedir}/ical.h
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/vcalendar.mo
 
 %files -n %{oname}-gtkhtml2_viewer-plugin -f %{oname}-gtkhtml2_viewer-plugin.lang
