@@ -327,8 +327,7 @@ done
 # remove devel files from plugins
 rm -rf ${RPM_BUILD_ROOT}/%{_libdir}/%{oname}/plugins/*.a
 #CAE have to rm to prevent conflict libical-devel
-#Handled upstream
-#rm -f ${RPM_BUILD_ROOT}/%{_includedir}/ical.h
+rm -f ${RPM_BUILD_ROOT}/%{_includedir}/ical.h
 
 # fix permissions
 chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NEWS vcalendar*/README
