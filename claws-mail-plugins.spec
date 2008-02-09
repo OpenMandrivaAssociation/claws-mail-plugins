@@ -358,6 +358,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %if %mdkversion > 200800
 %find_lang  %{oname}-tnef_parse-plugin
 %endif
+%find_lang  %{oname}-clamav-plugin
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -524,4 +525,3 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/%{oname}/plugins/clamav*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/clamav.mo
-
