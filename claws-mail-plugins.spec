@@ -23,7 +23,6 @@ BuildRequires:  flex
 BuildRequires:  automake1.9
 BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
-BuildRequires:  clamav-devel
 %if %mdkversion > 200800
 BuildRequires:  libytnef-devel
 %endif
@@ -53,8 +52,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-vcalendar-plugin,
 %{oname}-pdfviewer-plugin,
 %{oname}-spamreport-plugin,
-%{oname}-tnefparse-plugin,
-%{oname}-clamav-plugin.
+%{oname}-tnefparse-plugin.
 
 %package -n %{oname}-acpi-plugin
 Summary:    This plugin enables mail notification via LEDs on some laptops
@@ -292,20 +290,6 @@ Obsoletes:      sylpheed-claws-tnef_parse-plugin
 This %{oname} plugin enables parsing MS-TNEF attachments
 %endif
 
-%package -n %{oname}-clamav-plugin
-Summary:        Clamav antivirus plugin for %{oname}
-Group:          Networking/Mail
-Requires:       %{oname} >= %{claws-version}
-Requires:       clamav
-Provides:       sylpheed-claws2-clamav-plugin
-Obsoletes:      sylpheed-claws2-clamav-plugin
-
-%description -n %{oname}-clamav-plugin
-Enables the scanning of message attachments in mail
-received from a POP, IMAP, or LOCAL account using
-Clam AntiVirus. It can optionally delete the mail
-or save it to a designated folder.
-
 %prep
 %setup -q -c
 
@@ -359,7 +343,6 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %if %mdkversion > 200800
 %find_lang  %{oname}-tnef_parse-plugin
 %endif
-%find_lang  %{oname}-clamav-plugin
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -521,8 +504,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{oname}/plugins/tnef_parse*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/tnef_parse.mo
 %endif
-
-%files -n %{oname}-clamav-plugin -f %{oname}-clamav-plugin.lang
-%defattr(-,root,root)
-%{_libdir}/%{oname}/plugins/clamav*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/clamav.mo
