@@ -50,6 +50,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-smime-plugin,
 %{oname}-synce-plugin,
 %{oname}-vcalendar-plugin,
+%{oname}-vcalendar-plugin-devel,
 %{oname}-pdfviewer-plugin,
 %{oname}-spamreport-plugin,
 %{oname}-tnefparse-plugin.
@@ -220,12 +221,19 @@ Obsoletes:  sylpheed-claws2-vcalendar-plugin
 Provides:   sylpheed-claws-vcalendar-plugin
 Obsoletes:  sylpheed-claws-vcalendar-plugin
 
-
 %description -n %{oname}-vcalendar-plugin
 This %{oname} plugin handles the vCalendar format (or rather, the
 meeting subset of it). It displays such mails in a nice format, lets you
 create and send meetings, and creates a virtual folder with the meetings you
 have sent or received.
+
+%package -n %{oname}-vcalendar-plugin-devel
+Summary:    This plugin for %{oname} install the vcalendar plugin headers 
+Group:      Networking/Mail
+Requires:   %{oname}-devel >= %{claws_version}
+
+%description -n %{oname}-vcalendar-plugin-devel
+Header files for %{oname}-vcalendar-plugin.
 
 %package -n %{oname}-gtkhtml2_viewer-plugin
 Summary:        This plugin for %{oname} enables gtkhtml2 viewer
@@ -476,6 +484,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc vcalendar*/README
 %{_libdir}/%{oname}/plugins/vcalendar*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/vcalendar.mo
+
+%files -n %{oname}-vcalendar-plugin-devel
+%defattr(-,root,root)
+%{_includedir}/%{oname}/plugins/vcalendar/vcal_interface.h
 
 %files -n %{oname}-gtkhtml2_viewer-plugin -f %{oname}-gtkhtml2_viewer-plugin.lang
 %defattr(-,root,root)
