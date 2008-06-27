@@ -1,11 +1,11 @@
 %define oname claws-mail
-%define claws_version 3.4.0
+%define claws_version 3.5.0
 %define cvs %nil
 
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
 Version:    %{claws_version}
-Release:    %mkrel 2
+Release:    %mkrel 1
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
@@ -26,12 +26,6 @@ BuildRequires:  librapi-devel
 %if %mdkversion > 200800
 BuildRequires:  libytnef-devel
 %endif
-%if %mdkversion >= 200800
-BuildRequires:	libpoppler-devel
-BuildRequires:  libpoppler-glib-devel
-%else
-BuildRequires:	libpoppler-devel
-%endif
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
 
@@ -51,7 +45,6 @@ This package contains additional plugins for %{oname}:
 %{oname}-synce-plugin,
 %{oname}-vcalendar-plugin,
 %{oname}-vcalendar-plugin-devel,
-%{oname}-pdfviewer-plugin,
 %{oname}-spamreport-plugin,
 %{oname}-tnefparse-plugin.
 
@@ -260,18 +253,6 @@ Obsoletes:      sylpheed-claws-gtkhtml2_viewer-plugin
 %description -n %{oname}-attachwarner-plugin
 This %{oname} plugin provides attachwarner.
 
-%package -n %{oname}-pdf_viewer-plugin
-Summary:        This plugin for %{oname} enables pdf_viewer
-Group:          Networking/Mail
-Requires:       %{oname} >= %{claws_version}
-Provides:       sylpheed-claws2-pdf_viewer-plugin
-Obsoletes:      sylpheed-claws2-pdf_viewer-plugin
-Provides:       sylpheed-claws-pdf_viewer-plugin
-Obsoletes:      sylpheed-claws-pdf_viewer-plugin
-
-%description -n %{oname}-pdf_viewer-plugin
-This %{oname} plugin provides pdf_viewer.
-
 %package -n %{oname}-spam_report-plugin
 Summary:        This plugin for %{oname} enables spamreport
 Group:          Networking/Mail
@@ -346,7 +327,6 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-vcalendar-plugin
 %find_lang  %{oname}-rssyl-plugin
 %find_lang  %{oname}-attachwarner-plugin
-%find_lang  %{oname}-pdf_viewer-plugin
 %find_lang  %{oname}-spam_report-plugin
 %if %mdkversion > 200800
 %find_lang  %{oname}-tnef_parse-plugin
@@ -499,11 +479,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc gtkhtml2*/README
 %{_libdir}/%{oname}/plugins/gtkhtml2_viewer*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/gtkhtml2_viewer.mo
-
-%files -n %{oname}-pdf_viewer-plugin -f %{oname}-pdf_viewer-plugin.lang
-%defattr(-,root,root)
-%{_libdir}/%{oname}/plugins/pdf_viewer*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/pdf_viewer.mo
 
 %files -n %{oname}-spam_report-plugin -f %{oname}-spam_report-plugin.lang
 %defattr(-,root,root)
