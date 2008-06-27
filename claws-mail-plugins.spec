@@ -5,7 +5,7 @@
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
 Version:    %{claws_version}
-Release:    %mkrel 2
+Release:    %mkrel 3
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
