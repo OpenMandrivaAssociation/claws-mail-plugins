@@ -1,6 +1,7 @@
 %define oname claws-mail
 %define claws_version 3.5.0
 %define cvs %nil
+%define _disable_ld_no_undefined 1
 
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
