@@ -25,7 +25,6 @@ BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
 %if %mdkversion > 200800
 BuildRequires:  libytnef-devel
-BuildRequires:	libarchive-devel
 %endif
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
@@ -46,7 +45,6 @@ This package contains additional plugins for %{oname}:
 %{oname}-vcalendar-plugin-devel,
 %{oname}-spamreport-plugin,
 %{oname}-tnefparse-plugin,
-%{oname}-archive-plugin.
 
 %package -n %{oname}-acpi-plugin
 Summary:    This plugin enables mail notification via LEDs on some laptops
@@ -253,13 +251,6 @@ Obsoletes:      sylpheed-claws-tnef_parse-plugin
 %description -n %{oname}-tnef_parse-plugin
 This %{oname} plugin enables parsing MS-TNEF attachments
 
-%package -n %{oname}-archive-plugin
-Summary:        This plugin for %{oname} enables archiving mail folders
-Group:          Networking/Mail
-Requires:       %{oname} >= %{claws_version}
-
-%description -n %{oname}-archive-plugin
-This %{oname} plugin enables archiving mail folders
 %endif
 
 %prep
@@ -270,8 +261,8 @@ cd claws-mail-extra-plugins-%{version}
 
 %if %mdkversion <= 200800
 rm -r tnef_parse*
-rm -r archive*
 %endif
+rm -r archive*
 
 mv ./* ../
 cd -
@@ -314,7 +305,6 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-spam_report-plugin
 %if %mdkversion > 200800
 %find_lang  %{oname}-tnef_parse-plugin
-%find_lang  %{oname}-archive-plugin
 %endif
 
 %clean
@@ -476,8 +466,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{oname}/plugins/tnef_parse*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/tnef_parse.mo
 
-%files -n %{oname}-archive-plugin -f %{oname}-archive-plugin.lang
-%defattr(-,root,root)
-%{_libdir}/%{oname}/plugins/archive*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/archive.mo
 %endif
