@@ -5,7 +5,7 @@
 Summary:    This package contains additional plugins for %{oname}
 Name:       %{oname}-plugins
 Version:    %{claws_version}
-Release:    %mkrel 1
+Release:    %mkrel 2
 Group:      Networking/Mail
 License:    GPL
 URL:        http://www.claws-mail.org/plugins/downloads
@@ -25,6 +25,7 @@ BuildRequires:  libgtkhtml2-devel
 BuildRequires:  librapi-devel
 %if %mdkversion > 200800
 BuildRequires:  libytnef-devel
+BuildRequires:	libarchive-devel
 %endif
 BuildRequires:  ghostscript
 Requires:   %{oname} = %{claws_version}
@@ -34,9 +35,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-acpi-plugin,
 %{oname}-att_remover-plugin,
 %{oname}-cachesaver-plugin,
-%{oname}-etpan-privacy-plugin,
 %{oname}-fetchinfo-plugin,
-%{oname}-maildir-plugin,
 %{oname}-mailmbox-plugin,
 %{oname}-notification-plugin,
 %{oname}-perl-plugin,
@@ -46,7 +45,8 @@ This package contains additional plugins for %{oname}:
 %{oname}-vcalendar-plugin,
 %{oname}-vcalendar-plugin-devel,
 %{oname}-spamreport-plugin,
-%{oname}-tnefparse-plugin.
+%{oname}-tnefparse-plugin,
+%{oname}-archive-plugin.
 
 %package -n %{oname}-acpi-plugin
 Summary:    This plugin enables mail notification via LEDs on some laptops
@@ -83,19 +83,6 @@ Obsoletes:  sylpheed-claws-cachesaver-plugin
 This plugin for %{oname} saves the caches every minute. It helps
 in avoiding the loss of metadata on crashes.
 
-%package -n %{oname}-etpan-privacy-plugin
-Summary:    This plugin handles verification and decryption of encrypted messages
-Group:      Networking/Mail
-Requires:   %{oname} >= %{claws_version}
-Provides:   sylpheed-claws2-etpan-privacy-plugin
-Obsoletes:  sylpheed-claws2-etpan-privacy-plugin
-Provides:   sylpheed-claws-etpan-privacy-plugin
-Obsoletes:  sylpheed-claws-etpan-privacy-plugin
-
-%description -n %{oname}-etpan-privacy-plugin
-This plugin handles signature verification and decryption of encrypted
-messages in S/MIME, OpenPGP, and ascii-armored PGP formats.
-
 %package -n %{oname}-fetchinfo-plugin
 Summary:    This plugin inserts headers containing some download information
 Group:      Networking/Mail
@@ -109,18 +96,6 @@ Obsoletes:  sylpheed-claws-fetchinfo-plugin
 This plugin for %{oname} inserts headers containing some download
 information: UIDL, Sylpheeds account name, POP server, user ID
 and retrieval time.
-
-%package -n %{oname}-maildir-plugin
-Summary:    This plugin provides direct access to maildir folders
-Group:      Networking/Mail
-Requires:   %{oname} >= %{claws_version}
-Provides:   sylpheed-claws2-maildir-plugin
-Obsoletes:  sylpheed-claws2-maildir-plugin
-Provides:   sylpheed-claws-maildir-plugin
-Obsoletes:  sylpheed-claws-maildir-plugin
-
-%description -n %{oname}-maildir-plugin
-This plugin for %{oname} provides direct access to maildir folders.
 
 %package -n %{oname}-mailmbox-plugin
 Summary:    This plugin provides direct access to mbox folders
@@ -277,6 +252,14 @@ Obsoletes:      sylpheed-claws-tnef_parse-plugin
 
 %description -n %{oname}-tnef_parse-plugin
 This %{oname} plugin enables parsing MS-TNEF attachments
+
+%package -n %{oname}-archive-plugin
+Summary:        This plugin for %{oname} enables archiving mail folders
+Group:          Networking/Mail
+Requires:       %{oname} >= %{claws_version}
+
+%description -n %{oname}-archive-plugin
+This %{oname} plugin enables archiving mail folders
 %endif
 
 %prep
@@ -287,6 +270,7 @@ cd claws-mail-extra-plugins-%{version}
 
 %if %mdkversion <= 200800
 rm -r tnef_parse*
+rm -r archive*
 %endif
 
 mv ./* ../
@@ -330,6 +314,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-spam_report-plugin
 %if %mdkversion > 200800
 %find_lang  %{oname}-tnef_parse-plugin
+%find_lang  %{oname}-archive-plugin
 %endif
 
 %clean
@@ -490,4 +475,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{_libdir}/%{oname}/plugins/tnef_parse*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/tnef_parse.mo
+
+%files -n %{oname}-archive-plugin -f %{oname}-archive-plugin.lang
+%defattr(-,root,root)
+%{_libdir}/%{oname}/plugins/archive*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/archive.mo
 %endif
