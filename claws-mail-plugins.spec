@@ -6,12 +6,13 @@
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
 Version:	%{claws_version}
-Release:	%mkrel 4
+Release:	%mkrel 5
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
 Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
 Epoch:		1
+Patch0:         ical_tabs_as_continuation_marker.patch
 BuildRequires:	claws-mail-devel = 1:%{claws_version}
 BuildRequires:	claws-mail = 1:%{claws_version}
 BuildRequires:	libsynce-devel
@@ -255,6 +256,7 @@ This %{oname} plugin enables parsing MS-TNEF attachments.
 
 %prep
 %setup -q -c
+%patch0 -p0
 
 %build
 cd claws-mail-extra-plugins-%{version}
