@@ -6,7 +6,7 @@
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
 Version:	%{claws_version}
-Release:	%mkrel 5
+Release:	%mkrel 6
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
@@ -40,7 +40,6 @@ This package contains additional plugins for %{oname}:
 %{oname}-notification-plugin,
 %{oname}-perl-plugin,
 %{oname}-rssyl-plugin,
-%{oname}-smime-plugin,
 %{oname}-synce-plugin,
 %{oname}-vcalendar-plugin,
 %{oname}-vcalendar-plugin-devel,
@@ -155,16 +154,6 @@ Provides:	sylpheed-claws-rssyl-plugin
 %description -n %{oname}-rssyl-plugin
 This plugin allows you to read your favorite newsfeeds in %{oname}.
 RSS 1.0, 2.0 and Atom feeds are currently supported.
-
-%package -n %{oname}-smime-plugin
-Summary:	This plugin allow to use smine in mail
-Group:		Networking/Mail
-Requires:	%{oname} >= %{claws_version}
-Obsoletes:	sylpheed-claws-smime-plugin
-Provides:	sylpheed-claws-smime-plugin
-
-%description -n %{oname}-smime-plugin
-This plugin for %{oname} allow to use smime in mail.
 
 %package -n %{oname}-synce-plugin
 Summary:	This plugin assists in syncing the addressbook
@@ -391,13 +380,6 @@ rm -rf %{buildroot}
 %doc rssyl*/NEWS
 %{_libdir}/%{oname}/plugins/rssyl*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/rssyl.mo
-
-%files -n %{oname}-smime-plugin
-%defattr(-,root,root)
-%doc smim*/ChangeLog
-%doc smim*/NEWS
-%doc smim*/README
-%{_libdir}/%{oname}/plugins/smim*
 
 %Files -n %{oname}-synce-plugin
 %defattr(-,root,root)
