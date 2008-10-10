@@ -1,5 +1,5 @@
 %define oname claws-mail
-%define claws_version 3.6.0
+%define claws_version 3.6.1
 %define cvs %nil
 %define _disable_ld_no_undefined 1
 
@@ -307,7 +307,6 @@ rm -rf %{buildroot}
 %doc acpi*/README
 %{_libdir}/%{oname}/plugins/acpi*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/acpi_notifier.mo
-
 
 %files -n %{oname}-att_remover-plugin
 %defattr(-,root,root)
