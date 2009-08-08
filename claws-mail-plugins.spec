@@ -22,9 +22,6 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	libgtkhtml2-devel
 BuildRequires:	librapi-devel
-%if %mdkversion > 200800
-BuildRequires:	libytnef-devel
-%endif
 BuildRequires:	ghostscript
 Requires:	%{oname} = %{claws_version}
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -33,7 +30,9 @@ Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 This package contains additional plugins for %{oname}:
 %{oname}-acpi-plugin,
 %{oname}-att_remover-plugin,
+%{oname}-bsfilter-plugin,
 %{oname}-cachesaver-plugin,
+%{oname}-fancy-plugin,
 %{oname}-fetchinfo-plugin,
 %{oname}-mailmbox-plugin,
 %{oname}-notification-plugin,
@@ -63,9 +62,17 @@ Requires:	%{oname} >= %{claws_version}
 Obsoletes:	sylpheed-claws-att_remover-plugin
 Provides:	sylpheed-claws-att_remover-plugin
 
-
 %description -n %{oname}-att_remover-plugin
 This plugin for %{oname} enables the removal of attachments.
+
+%package -n %{oname}-bsfilter-plugin
+Summary:	This plugin enables spam fitering through bsfilter
+Group:		Networking/Mail
+Requires:	%{oname} >= %{claws_version}
+
+%description -n %{oname}-bsfilter-plugin
+Check all messages that are received from an IMAP, LOCAL or POP account 
+for spam using Bsfilter. 
 
 %package -n %{oname}-cachesaver-plugin
 Summary:	This plugin for %{oname} saves the caches every minute
@@ -79,6 +86,15 @@ Obsoletes:	sylpheed-claws-cachesaver-plugin
 %description -n %{oname}-cachesaver-plugin
 This plugin for %{oname} saves the caches every minute. It helps
 in avoiding the loss of metadata on crashes.
+
+%package -n %{oname}-fancy-plugin
+Summary:	This plugin renders HTML e-mails through WebKit
+Group:		Networking/Mail
+BuildRequires:	webkitgtk-devel
+Requires:	%{oname} >= %{claws_version}
+
+%description -n %{oname}-fancy-plugin
+Renders HTML e-mail using the WebKit library 
 
 %package -n %{oname}-fetchinfo-plugin
 Summary:	This plugin inserts headers containing some download information
@@ -232,6 +248,7 @@ This %{oname} plugin provides spamreport.
 %package -n %{oname}-tnef_parse-plugin
 Summary:	This plugin for %{oname} enables parsing MS-TNEF attachments
 Group:		Networking/Mail
+BuildRequires:	libytnef-devel
 Requires:	%{oname} >= %{claws_version}
 Provides:	sylpheed-claws2-tnef_parse-plugin
 Obsoletes:	sylpheed-claws2-tnef_parse-plugin
@@ -282,11 +299,14 @@ done
 rm -rf %{buildroot}%{_libdir}/%{oname}/plugins/*.a
 #CAE have to rm to prevent conflict libical-devel
 rm -f %{buildroot}%{_includedir}/ical.h
+rm -f %{buildroot}%{_includedir}/claws-mail/plugins/vcalendar/ical.h
 
 # fix permissions
 chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NEWS vcalendar*/README
 
 %find_lang  %{oname}-acpi-plugin
+%find_lang  %{oname}-bsfilter-plugin
+%find_lang  %{oname}-fancy-plugin
 %find_lang  %{oname}-gtkhtml2_viewer-plugin
 %find_lang  %{oname}-vcalendar-plugin
 %find_lang  %{oname}-rssyl-plugin
@@ -326,11 +346,31 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/attachwarner*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/attach*.mo
 
+%files -n %{oname}-bsfilter-plugin -f %{oname}-bsfilter-plugin.lang
+%defattr(-,root,root)
+%doc attachwarner*/AUTHORS
+%doc attachwarner*/ChangeLog
+%doc attachwarner*/NEWS
+%doc attachwarner*/README
+%doc attachwarner*/TODO
+%{_libdir}/%{oname}/plugins/bsfilter*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/bsfilter_plugin.mo
+
 %files -n %{oname}-cachesaver-plugin
 %defattr(-,root,root)
 %doc cachesaver*/AUTHORS
 %doc cachesaver*/ChangeLog
 %{_libdir}/%{oname}/plugins/cachesaver*
+
+%files -n %{oname}-fancy-plugin -f %{oname}-fancy-plugin.lang
+%defattr(-,root,root)
+%doc attachwarner*/AUTHORS
+%doc attachwarner*/ChangeLog
+%doc attachwarner*/NEWS
+%doc attachwarner*/README
+%doc attachwarner*/TODO
+%{_libdir}/%{oname}/plugins/fancy*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/fancy.mo
 
 %files -n %{oname}-fetchinfo-plugin
 %defattr(-,root,root)
