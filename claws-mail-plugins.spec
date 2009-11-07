@@ -1,5 +1,5 @@
 %define oname claws-mail
-%define claws_version 3.7.2
+%define claws_version 3.7.3
 %define cvs %nil
 %define _disable_ld_no_undefined 1
 
@@ -23,6 +23,7 @@ BuildRequires:	flex
 BuildRequires:	libgtkhtml2-devel
 BuildRequires:	librapi-devel
 BuildRequires:	ghostscript
+BuildRequires:	pygtk2.0-devel
 Requires:	%{oname} = %{claws_version}
 Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -37,6 +38,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-mailmbox-plugin,
 %{oname}-notification-plugin,
 %{oname}-perl-plugin,
+%{oname}-python-plugin,
 %{oname}-rssyl-plugin,
 %{oname}-synce-plugin,
 %{oname}-vcalendar-plugin,
@@ -158,6 +160,14 @@ This plugin is intended to extend the filtering possibilities
 of %{oname}. It provides a Perl interface to %{oname}s'
 filtering mechanism, allowing the use of full Perl power in
 email filters.
+
+%package -n %{oname}-python-plugin
+Summary:	Python scriptin access to %{oname}
+Group:		Networking/Mail
+Requires:	%{oname} >= %{claws_version}
+
+%description -n %{oname}-python-plugin
+This plugin offers a Python scripting access to %{oname}.
 
 %package -n %{oname}-rssyl-plugin
 Summary:	This plugin allows you to read your favorite newsfeeds in %{oname}
@@ -410,6 +420,13 @@ rm -rf %{buildroot}
 %doc perl*/README
 %doc perl*/cm_perl.pod
 %{_libdir}/%{oname}/plugins/perl*
+
+%files -n %{oname}-python-plugin
+%defattr(-,root,root)
+%doc perl*/AUTHORS
+%doc perl*/ChangeLog
+%doc perl*/README
+%{_libdir}/%{oname}/plugins/python*
 
 %files -n %{oname}-rssyl-plugin -f %{oname}-rssyl-plugin.lang
 %doc rssyl*/AUTHORS
