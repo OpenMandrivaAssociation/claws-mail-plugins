@@ -6,7 +6,7 @@
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
 Version:	%{claws_version}
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
@@ -310,6 +310,7 @@ done
 rm -rf %{buildroot}%{_libdir}/%{oname}/plugins/*.a
 #CAE have to rm to prevent conflict libical-devel
 rm -f %{buildroot}%{_includedir}/ical.h
+rm -rf %{buildroot}%{_includedir}/notification_plugin
 rm -f %{buildroot}%{_includedir}/claws-mail/plugins/vcalendar/ical.h
 
 # fix permissions
@@ -428,6 +429,7 @@ rm -rf %{buildroot}
 %doc perl*/ChangeLog
 %doc perl*/README
 %{_libdir}/%{oname}/plugins/python*
+%lang(all) %{_datadir}/locale/*/LC_MESSAGES/python_plugin.mo
 
 %files -n %{oname}-rssyl-plugin -f %{oname}-rssyl-plugin.lang
 %doc rssyl*/AUTHORS
