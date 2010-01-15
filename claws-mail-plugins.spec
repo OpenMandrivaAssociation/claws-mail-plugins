@@ -6,7 +6,7 @@
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
 Version:	%{claws_version}
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
@@ -279,6 +279,7 @@ cd claws-mail-extra-plugins-%{version}
 rm -r tnef_parse*
 %endif
 rm -r archive*
+rm -r geolocation*
 
 mv ./* ../
 cd -
