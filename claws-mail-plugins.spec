@@ -1,5 +1,5 @@
 %define oname claws-mail
-%define claws_version 3.7.5
+%define claws_version 3.7.6
 %define cvs %nil
 %define _disable_ld_no_undefined 1
 
