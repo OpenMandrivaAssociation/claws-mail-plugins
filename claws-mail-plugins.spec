@@ -14,7 +14,6 @@ Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-
 Epoch:		1
 BuildRequires:	claws-mail-devel = 1:%{claws_version}
 BuildRequires:	claws-mail = 1:%{claws_version}
-#BuildRequires:	libsynce-devel
 BuildRequires:	libetpan-devel
 BuildRequires:	perl-devel
 BuildRequires:	curl-devel
