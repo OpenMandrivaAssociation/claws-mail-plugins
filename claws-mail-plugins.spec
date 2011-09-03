@@ -1,12 +1,11 @@
 %define oname claws-mail
-%define claws_version 3.7.9
 %define cvs %nil
 %define _disable_ld_no_undefined 1
 
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
-Version:	%{claws_version}
-Release:	%mkrel 2
+Version:	3.7.10
+Release:	%mkrel 1
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
