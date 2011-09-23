@@ -23,6 +23,7 @@ BuildRequires:	libgtkhtml2-devel
 BuildRequires:	librapi-devel
 BuildRequires:	ghostscript
 BuildRequires:	pygtk2.0-devel
+BuildRequires:	libgdata-devel
 Obsoletes:	%{oname}-cachesaver-plugin
 Obsoletes:	%{oname}-synce-plugin
 Requires:	%{oname} = %{claws_version}
