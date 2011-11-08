@@ -11,6 +11,8 @@ Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
 Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
+Patch0:		claws-mail-plugins-3.7.10-glib.patch
+Patch1:		claws-mail-plugins-3.7.10-perl.patch
 Epoch:		1
 BuildRequires:	claws-mail-devel = 1:%{claws_version}
 BuildRequires:	claws-mail = 1:%{claws_version}
@@ -36,6 +38,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-bsfilter-plugin,
 %{oname}-fancy-plugin,
 %{oname}-fetchinfo-plugin,
+%{oname}-gdata-plugin,
 %{oname}-mailmbox-plugin,
 %{oname}-notification-plugin,
 %{oname}-perl-plugin,
@@ -44,7 +47,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-vcalendar-plugin,
 %{oname}-vcalendar-plugin-devel,
 %{oname}-spamreport-plugin,
-%{oname}-tnefparse-plugin,
+%{oname}-tnefparse-plugin
 
 %package -n %{oname}-acpi-plugin
 Summary:	This plugin enables mail notification via LEDs on some laptops
@@ -117,6 +120,15 @@ Obsoletes:	sylpheed-claws-fetchinfo-plugin < %{claws_version}
 This plugin for %{oname} inserts headers containing some download
 information: UIDL, Sylpheeds account name, POP server, user ID
 and retrieval time.
+
+%package -n %{oname}-gdata-plugin
+Summary:	This plugin enables access to GData (Google services)
+Group:		Networking/Mail
+Requires:	%{oname} >= %{claws_version}
+
+%description -n %{oname}-gdata-plugin
+Plugin to access to GData (Google services). The only currently implemented
+feature is inclusion of Google contacts into the address completion.
 
 %package -n %{oname}-mailmbox-plugin
 Summary:	This plugin provides direct access to mbox folders
@@ -262,21 +274,17 @@ This %{oname} plugin enables parsing MS-TNEF attachments.
 %endif
 
 %prep
-%setup -q -c
+%setup -q -n claws-mail-extra-plugins-%{version}
+%patch0 -p1 -b .glib
+%patch1 -p1 -b .perl
 
 %build
-cd claws-mail-extra-plugins-%{version}
-
 %if %mdkversion <= 200800
 rm -r tnef_parse*
 %endif
 rm -r archive*
 rm -r geolocation*
 
-mv ./* ../
-cd -
-rmdir claws-mail-extra-plugins-%{version}
-#rm -rf CVS/ pgpinline/
 for i in `find ./* -maxdepth 0  -type d`
     do
     cd $i
@@ -313,6 +321,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang  %{oname}-bsfilter-plugin
 %find_lang  %{oname}-clamd-plugin
 %find_lang  %{oname}-fancy-plugin
+%find_lang  %{oname}-gdata-plugin
 %find_lang  %{oname}-gtkhtml2_viewer-plugin
 %find_lang  %{oname}-vcalendar-plugin
 %find_lang  %{oname}-rssyl-plugin
@@ -393,6 +402,13 @@ rm -rf %{buildroot}
 %doc fetchinfo*/README
 %{_libdir}/%{oname}/plugins/fetchinfo*
 
+%files -n %{oname}-gdata-plugin
+%defattr(-,root,root)
+%doc gdata*/AUTHORS
+%doc gdata*/ChangeLog
+%doc gdata*/README
+%{_libdir}/%{oname}/plugins/gdata*
+
 %files -n %{oname}-mailmbox-plugin
 %defattr(-,root,root)
 %doc mailmbox*/AUTHORS
@@ -428,9 +444,9 @@ rm -rf %{buildroot}
 
 %files -n %{oname}-python-plugin
 %defattr(-,root,root)
-%doc perl*/AUTHORS
-%doc perl*/ChangeLog
-%doc perl*/README
+%doc python*/AUTHORS
+%doc python*/ChangeLog
+%doc python*/README
 %{_libdir}/%{oname}/plugins/python*
 %lang(all) %{_datadir}/locale/*/LC_MESSAGES/python_plugin.mo
 
