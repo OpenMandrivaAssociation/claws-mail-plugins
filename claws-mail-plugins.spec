@@ -5,13 +5,12 @@
 
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
-Version:	3.7.10
-Release:	%mkrel 1
+Version:	3.8.0
+Release:	1
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
-Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
-Patch0:		claws-mail-plugins-3.7.10-glib.patch
+Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.gz
 Patch1:		claws-mail-plugins-3.7.10-perl.patch
 Epoch:		1
 BuildRequires:	claws-mail-devel = 1:%{claws_version}
@@ -80,6 +79,19 @@ Provides:	sylpheed-claws-att_remover-plugin
 %description -n %{oname}-att_remover-plugin
 This plugin for %{oname} enables the removal of attachments.
 
+%package -n %{oname}-attachwarner-plugin
+Summary:	This plugin for %{oname} enables attachwarner
+Group:		Networking/Mail
+Requires:	%{oname} >= %{claws_version}
+Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
+Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
+Provides:	sylpheed-claws-gtkhtml2_viewer-plugin
+Obsoletes:	sylpheed-claws-gtkhtml2_viewer-plugin < %{claws_version}
+
+%description -n %{oname}-attachwarner-plugin
+This %{oname} plugin provides attachwarner.
+
+
 %package -n %{oname}-bsfilter-plugin
 Summary:	This plugin enables spam fitering through bsfilter
 Group:		Networking/Mail
@@ -130,6 +142,19 @@ Requires:	%{oname} >= %{claws_version}
 Plugin to access to GData (Google services). The only currently implemented
 feature is inclusion of Google contacts into the address completion.
 
+%package -n %{oname}-gtkhtml2_viewer-plugin
+Summary:	This plugin for %{oname} enables gtkhtml2 viewer
+Group:		Networking/Mail
+BuildRequires:	gail-devel
+Requires:	%{oname} >= %{claws_version}
+Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
+Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
+Provides:	sylpheed-claws-gtkhtml2_viewer-plugin
+Obsoletes:	sylpheed-claws-gtkhtml2_viewer-plugin < %{claws_version}
+
+%description -n %{oname}-gtkhtml2_viewer-plugin
+This %{oname} plugin provides gtkhtml2 viewer.
+
 %package -n %{oname}-mailmbox-plugin
 Summary:	This plugin provides direct access to mbox folders
 Group:		Networking/Mail
@@ -163,6 +188,14 @@ Provides:	sylpheed-claws-notification-plugin
 
 %description -n %{oname}-notification-plugin
 This plugin for %{oname} notify from new incoming mail.
+
+%package -n %{oname}-notification-plugin-devel
+Summary:	This plugin for %{oname} install the notification plugin headers
+Group:		Networking/Mail
+Requires:	%{oname}-devel >= %{claws_version}
+
+%description -n %{oname}-notification-plugin-devel
+Header files for %{oname}-notification-plugin.
 
 %package -n %{oname}-perl-plugin
 Summary:	Perl interface to %{oname}s' filtering mechanism
@@ -198,6 +231,31 @@ Provides:	sylpheed-claws-rssyl-plugin
 This plugin allows you to read your favorite newsfeeds in %{oname}.
 RSS 1.0, 2.0 and Atom feeds are currently supported.
 
+%package -n %{oname}-spam_report-plugin
+Summary:	This plugin for %{oname} enables spamreport
+Group:		Networking/Mail
+Requires:	%{oname} >= %{claws_version}
+Provides:	sylpheed-claws2-spam_report-plugin
+Obsoletes:	sylpheed-claws2-spam_report-plugin < %{claws_version}
+Provides:	sylpheed-claws-spam_report-plugin
+Obsoletes:	sylpheed-claws-spam_report-plugin < %{claws_version}
+
+%description -n %{oname}-spam_report-plugin
+This %{oname} plugin provides spamreport.
+
+%package -n %{oname}-tnef_parse-plugin
+Summary:	This plugin for %{oname} enables parsing MS-TNEF attachments
+Group:		Networking/Mail
+BuildRequires:	libytnef-devel
+Requires:	%{oname} >= %{claws_version}
+Provides:	sylpheed-claws2-tnef_parse-plugin
+Obsoletes:	sylpheed-claws2-tnef_parse-plugin < %{claws_version}
+Provides:	sylpheed-claws-tnef_parse-plugin
+Obsoletes:	sylpheed-claws-tnef_parse-plugin < %{claws_version}
+
+%description -n %{oname}-tnef_parse-plugin
+This %{oname} plugin enables parsing MS-TNEF attachments.
+
 %package -n %{oname}-vcalendar-plugin
 Summary:	This plugin for %{oname} enables vCalendar message handling
 Group:		Networking/Mail
@@ -221,61 +279,9 @@ Requires:	%{oname}-devel >= %{claws_version}
 %description -n %{oname}-vcalendar-plugin-devel
 Header files for %{oname}-vcalendar-plugin.
 
-%package -n %{oname}-gtkhtml2_viewer-plugin
-Summary:	This plugin for %{oname} enables gtkhtml2 viewer
-Group:		Networking/Mail
-BuildRequires:	gail-devel
-Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
-Provides:	sylpheed-claws-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws-gtkhtml2_viewer-plugin < %{claws_version}
-
-%description -n %{oname}-gtkhtml2_viewer-plugin
-This %{oname} plugin provides gtkhtml2 viewer.
-
-%package -n %{oname}-attachwarner-plugin
-Summary:	This plugin for %{oname} enables attachwarner
-Group:		Networking/Mail
-Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
-Provides:	sylpheed-claws-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws-gtkhtml2_viewer-plugin < %{claws_version}
-
-%description -n %{oname}-attachwarner-plugin
-This %{oname} plugin provides attachwarner.
-
-%package -n %{oname}-spam_report-plugin
-Summary:	This plugin for %{oname} enables spamreport
-Group:		Networking/Mail
-Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-spam_report-plugin
-Obsoletes:	sylpheed-claws2-spam_report-plugin < %{claws_version}
-Provides:	sylpheed-claws-spam_report-plugin
-Obsoletes:	sylpheed-claws-spam_report-plugin < %{claws_version}
-
-%description -n %{oname}-spam_report-plugin
-This %{oname} plugin provides spamreport.
-
-%if %mdkversion > 200800
-%package -n %{oname}-tnef_parse-plugin
-Summary:	This plugin for %{oname} enables parsing MS-TNEF attachments
-Group:		Networking/Mail
-BuildRequires:	libytnef-devel
-Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-tnef_parse-plugin
-Obsoletes:	sylpheed-claws2-tnef_parse-plugin < %{claws_version}
-Provides:	sylpheed-claws-tnef_parse-plugin
-Obsoletes:	sylpheed-claws-tnef_parse-plugin < %{claws_version}
-
-%description -n %{oname}-tnef_parse-plugin
-This %{oname} plugin enables parsing MS-TNEF attachments.
-%endif
 
 %prep
 %setup -q -n claws-mail-extra-plugins-%{version}
-%patch0 -p1 -b .glib
 %patch1 -p1 -b .perl
 
 %build
@@ -316,39 +322,37 @@ rm -f %{buildroot}%{_includedir}/claws-mail/plugins/vcalendar/ical.h
 # fix permissions
 chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NEWS vcalendar*/README
 
-%find_lang  %{oname}-acpi-plugin
-%find_lang  %{oname}-address_keeper-plugin
-%find_lang  %{oname}-bsfilter-plugin
-%find_lang  %{oname}-clamd-plugin
-%find_lang  %{oname}-fancy-plugin
-%find_lang  %{oname}-gdata-plugin
-%find_lang  %{oname}-gtkhtml2_viewer-plugin
-%find_lang  %{oname}-vcalendar-plugin
-%find_lang  %{oname}-rssyl-plugin
-%find_lang  %{oname}-attachwarner-plugin
-%find_lang  %{oname}-spam_report-plugin
-%if %mdkversion > 200800
-%find_lang  %{oname}-tnef_parse-plugin
-%endif
+%find_lang acpi_notifier
+%find_lang address_keeper
+%find_lang attachwarner
+%find_lang bsfilter_plugin
+%find_lang clamd
+%find_lang fancy
+%find_lang gdata_plugin
+%find_lang gtkhtml2_viewer
+%find_lang notification_plugin
+%find_lang python_plugin
+%find_lang rssyl
+%find_lang spam_report
+%find_lang tnef_parse
+%find_lang vcalendar
 
 %clean
 rm -rf %{buildroot}
 
-%files -n %{oname}-acpi-plugin -f %{oname}-acpi-plugin.lang
+%files -n %{oname}-acpi-plugin -f acpi_notifier.lang
 %defattr(-,root,root)
 %doc acpi*/AUTHORS
 %doc acpi*/ChangeLog
 %doc acpi*/NEWS
 %doc acpi*/README
 %{_libdir}/%{oname}/plugins/acpi*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/acpi_notifier.mo
 
-%files -n %{oname}-address_keeper-plugin -f %{oname}-address_keeper-plugin.lang
+%files -n %{oname}-address_keeper-plugin -f address_keeper.lang
 %defattr(-,root,root)
 %doc address_keeper*/AUTHORS
 %doc address_keeper*/ChangeLog
 %{_libdir}/%{oname}/plugins/address_keeper*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/address_keeper.mo
 
 %files -n %{oname}-att_remover-plugin
 %defattr(-,root,root)
@@ -358,7 +362,7 @@ rm -rf %{buildroot}
 %doc att_remover*/README
 %{_libdir}/%{oname}/plugins/att_remover*
 
-%files -n %{oname}-attachwarner-plugin
+%files -n %{oname}-attachwarner-plugin -f attachwarner.lang
 %defattr(-,root,root)
 %doc attachwarner*/AUTHORS
 %doc attachwarner*/ChangeLog
@@ -366,9 +370,8 @@ rm -rf %{buildroot}
 %doc attachwarner*/README
 %doc attachwarner*/TODO
 %{_libdir}/%{oname}/plugins/attachwarner*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/attach*.mo
 
-%files -n %{oname}-bsfilter-plugin -f %{oname}-bsfilter-plugin.lang
+%files -n %{oname}-bsfilter-plugin -f bsfilter_plugin.lang
 %defattr(-,root,root)
 %doc attachwarner*/AUTHORS
 %doc attachwarner*/ChangeLog
@@ -376,17 +379,15 @@ rm -rf %{buildroot}
 %doc attachwarner*/README
 %doc attachwarner*/TODO
 %{_libdir}/%{oname}/plugins/bsfilter*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/bsfilter_plugin.mo
 
-%files -n %{oname}-clamd-plugin -f %{oname}-clamd-plugin.lang
+%files -n %{oname}-clamd-plugin -f clamd.lang
 %defattr(-,root,root)
 %doc clamd*/AUTHORS
 %doc clamd*/ChangeLog
 %doc clamd*/README
 %{_libdir}/%{oname}/plugins/clamd*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/clamd.mo
 
-%files -n %{oname}-fancy-plugin -f %{oname}-fancy-plugin.lang
+%files -n %{oname}-fancy-plugin -f fancy.lang
 %defattr(-,root,root)
 %doc attachwarner*/AUTHORS
 %doc attachwarner*/ChangeLog
@@ -394,7 +395,6 @@ rm -rf %{buildroot}
 %doc attachwarner*/README
 %doc attachwarner*/TODO
 %{_libdir}/%{oname}/plugins/fancy*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/fancy.mo
 
 %files -n %{oname}-fetchinfo-plugin
 %defattr(-,root,root)
@@ -402,12 +402,20 @@ rm -rf %{buildroot}
 %doc fetchinfo*/README
 %{_libdir}/%{oname}/plugins/fetchinfo*
 
-%files -n %{oname}-gdata-plugin
+%files -n %{oname}-gdata-plugin -f gdata_plugin.lang
 %defattr(-,root,root)
 %doc gdata*/AUTHORS
 %doc gdata*/ChangeLog
 %doc gdata*/README
 %{_libdir}/%{oname}/plugins/gdata*
+
+%files -n %{oname}-gtkhtml2_viewer-plugin -f gtkhtml2_viewer.lang
+%defattr(-,root,root)
+%doc gtkhtml2*/AUTHORS
+%doc gtkhtml2*/ChangeLog
+%doc gtkhtml2*/NEWS
+%doc gtkhtml2*/README
+%{_libdir}/%{oname}/plugins/gtkhtml2_viewer*
 
 %files -n %{oname}-mailmbox-plugin
 %defattr(-,root,root)
@@ -424,14 +432,19 @@ rm -rf %{buildroot}
 %doc newmail*/README
 %{_libdir}/%{oname}/plugins/newmail*
 
-%files -n %{oname}-notification-plugin
+%files -n %{oname}-notification-plugin -f notification_plugin.lang
 %defattr(-,root,root)
 %doc notif*/AUTHORS
 %doc notif*/ChangeLog
 %doc notif*/NEWS
 %doc notif*/README
 %{_libdir}/%{oname}/plugins/noti*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/notification_plugin.mo
+
+%files -n %{oname}-notification-plugin-devel
+%defattr(-,root,root)
+%dir %{_includedir}/%{oname}/plugins/notification_plugin
+%dir %{_includedir}/%{oname}/plugins/notification_plugin/gtkhotkey
+%{_includedir}/%{oname}/plugins/notification_plugin/gtkhotkey/*.h
 
 %files -n %{oname}-perl-plugin
 %defattr(-,root,root)
@@ -442,51 +455,35 @@ rm -rf %{buildroot}
 %doc perl*/cm_perl.pod
 %{_libdir}/%{oname}/plugins/perl*
 
-%files -n %{oname}-python-plugin
+%files -n %{oname}-python-plugin -f python_plugin.lang
 %defattr(-,root,root)
 %doc python*/AUTHORS
 %doc python*/ChangeLog
 %doc python*/README
 %{_libdir}/%{oname}/plugins/python*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/python_plugin.mo
 
-%files -n %{oname}-rssyl-plugin -f %{oname}-rssyl-plugin.lang
+%files -n %{oname}-rssyl-plugin -f rssyl.lang
 %doc rssyl*/AUTHORS
 %doc rssyl*/ChangeLog
 %doc rssyl*/NEWS
 %{_libdir}/%{oname}/plugins/rssyl*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/rssyl.mo
 
-%files -n %{oname}-vcalendar-plugin
+%files -n %{oname}-spam_report-plugin -f spam_report.lang
+%defattr(-,root,root)
+%{_libdir}/%{oname}/plugins/spamreport*
+
+%files -n %{oname}-tnef_parse-plugin -f tnef_parse.lang
+%defattr(-,root,root)
+%{_libdir}/%{oname}/plugins/tnef_parse*
+
+%files -n %{oname}-vcalendar-plugin -f vcalendar.lang
 %defattr(-,root,root)
 %doc vcalendar*/AUTHORS
 %doc vcalendar*/ChangeLog
 %doc vcalendar*/NEWS
 %doc vcalendar*/README
 %{_libdir}/%{oname}/plugins/vcalendar*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/vcalendar.mo
 
 %files -n %{oname}-vcalendar-plugin-devel
 %defattr(-,root,root)
 %{_includedir}/%{oname}/plugins/vcalendar/vcal_interface.h
-
-%files -n %{oname}-gtkhtml2_viewer-plugin -f %{oname}-gtkhtml2_viewer-plugin.lang
-%defattr(-,root,root)
-%doc gtkhtml2*/AUTHORS
-%doc gtkhtml2*/ChangeLog
-%doc gtkhtml2*/NEWS
-%doc gtkhtml2*/README
-%{_libdir}/%{oname}/plugins/gtkhtml2_viewer*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/gtkhtml2_viewer.mo
-
-%files -n %{oname}-spam_report-plugin -f %{oname}-spam_report-plugin.lang
-%defattr(-,root,root)
-%{_libdir}/%{oname}/plugins/spamreport*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/spam_report.mo
-
-%if %mdkversion > 200800
-%files -n %{oname}-tnef_parse-plugin -f %{oname}-tnef_parse-plugin.lang
-%defattr(-,root,root)
-%{_libdir}/%{oname}/plugins/tnef_parse*
-%lang(all) %{_datadir}/locale/*/LC_MESSAGES/tnef_parse.mo
-%endif
