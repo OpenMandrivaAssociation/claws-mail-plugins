@@ -5,12 +5,12 @@
 
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
-Version:	3.8.0
+Version:	3.8.1
 Release:	1
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
-Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.gz
+Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
 Patch1:		claws-mail-plugins-3.7.10-perl.patch
 Epoch:		1
 BuildRequires:	claws-mail-devel = 1:%{claws_version}
