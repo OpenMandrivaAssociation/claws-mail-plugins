@@ -15,20 +15,25 @@ Patch1:		claws-mail-plugins-3.7.10-perl.patch
 Epoch:		1
 BuildRequires:	claws-mail-devel = 1:%{claws_version}
 BuildRequires:	claws-mail = 1:%{claws_version}
-BuildRequires:	libetpan-devel
-BuildRequires:	perl-devel
-BuildRequires:	curl-devel
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	libgtkhtml2-devel
-BuildRequires:	librapi-devel
 BuildRequires:	ghostscript
-BuildRequires:	pygtk2.0-devel
-BuildRequires:	libgdata-devel
+BuildRequires:	libetpan-devel
+BuildRequires:	libytnef-devel
+BuildRequires:	perl-devel
+BuildRequires:	pkgconfig(gail)
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libgdata)
+BuildRequires:	pkgconfig(libgtkhtml-2.0)
+BuildRequires:	pkgconfig(libnotify)
+BuildRequires:	pkgconfig(librapi2)
+BuildRequires:	pkgconfig(poppler)
+BuildRequires:	pkgconfig(poppler-glib)
+BuildRequires:	pkgconfig(pygtk-2.0)
+BuildRequires:	pkgconfig(webkit-1.0)
 Obsoletes:	%{oname}-cachesaver-plugin
 Obsoletes:	%{oname}-synce-plugin
 Requires:	%{oname} = %{claws_version}
-Buildroot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 This package contains additional plugins for %{oname}:
@@ -40,6 +45,7 @@ This package contains additional plugins for %{oname}:
 %{oname}-gdata-plugin,
 %{oname}-mailmbox-plugin,
 %{oname}-notification-plugin,
+%{oname}-pdfviewer-plugin,
 %{oname}-perl-plugin,
 %{oname}-python-plugin,
 %{oname}-rssyl-plugin,
@@ -113,7 +119,6 @@ for spam using Clam AntiVirus.
 %package -n %{oname}-fancy-plugin
 Summary:	This plugin renders HTML e-mails through WebKit
 Group:		Networking/Mail
-BuildRequires:	webkitgtk-devel
 Requires:	%{oname} >= %{claws_version}
 
 %description -n %{oname}-fancy-plugin
@@ -145,7 +150,6 @@ feature is inclusion of Google contacts into the address completion.
 %package -n %{oname}-gtkhtml2_viewer-plugin
 Summary:	This plugin for %{oname} enables gtkhtml2 viewer
 Group:		Networking/Mail
-BuildRequires:	gail-devel
 Requires:	%{oname} >= %{claws_version}
 Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
 Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
@@ -181,7 +185,6 @@ receiving new mail. It defaults to ~/Mail/NewLog.
 %package -n %{oname}-notification-plugin
 Summary:	This plugin notify from new mail
 Group:		Networking/Mail
-BuildRequires:	libnotify-devel
 Requires:	%{oname} >= %{claws_version}
 Obsoletes:	sylpheed-claws-notification-plugin < %{claws_version}
 Provides:	sylpheed-claws-notification-plugin
@@ -196,6 +199,14 @@ Requires:	%{oname}-devel >= %{claws_version}
 
 %description -n %{oname}-notification-plugin-devel
 Header files for %{oname}-notification-plugin.
+
+%package -n %{oname}-pdfviewer-plugin
+Summary:	%{oname} plugin to handle PDF attachments
+Group:		Networking/Mail
+Requires:	%{oname} >= %{claws_version}
+
+%description -n %{oname}-pdfviewer-plugin
+This %{oname} plugin This plugin handles PDF and Postscript attachments.
 
 %package -n %{oname}-perl-plugin
 Summary:	Perl interface to %{oname}s' filtering mechanism
@@ -246,7 +257,6 @@ This %{oname} plugin provides spamreport.
 %package -n %{oname}-tnef_parse-plugin
 Summary:	This plugin for %{oname} enables parsing MS-TNEF attachments
 Group:		Networking/Mail
-BuildRequires:	libytnef-devel
 Requires:	%{oname} >= %{claws_version}
 Provides:	sylpheed-claws2-tnef_parse-plugin
 Obsoletes:	sylpheed-claws2-tnef_parse-plugin < %{claws_version}
@@ -279,25 +289,21 @@ Requires:	%{oname}-devel >= %{claws_version}
 %description -n %{oname}-vcalendar-plugin-devel
 Header files for %{oname}-vcalendar-plugin.
 
-
 %prep
 %setup -q -n claws-mail-extra-plugins-%{version}
 %patch1 -p1 -b .perl
 
 %build
-%if %mdkversion <= 200800
-rm -r tnef_parse*
-%endif
 rm -r archive*
 rm -r geolocation*
 
 for i in `find ./* -maxdepth 0  -type d`
     do
-    cd $i
+    pushd $i
     #./autogen.sh
     %configure2_5x --disable-rpath --disable-static
     %make
-    cd -
+    popd
 done
 
 %install
@@ -307,9 +313,9 @@ CLAWS_MAIL_PLUGINDIR=$(pkg-config --variable=plugindir claws-mail)
 
 for i in `find ./* -maxdepth 0  -type d`
     do
-    cd $i
+    pushd $i
     %makeinstall_std CLAWS_MAIL_PLUGINDIR=$CLAWS_MAIL_PLUGINDIR
-    cd -
+    popd
 done
 
 # remove devel files from plugins
@@ -331,17 +337,14 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang gdata_plugin
 %find_lang gtkhtml2_viewer
 %find_lang notification_plugin
+%find_lang pdf_viewer
 %find_lang python_plugin
 %find_lang rssyl
 %find_lang spam_report
 %find_lang tnef_parse
 %find_lang vcalendar
 
-%clean
-rm -rf %{buildroot}
-
 %files -n %{oname}-acpi-plugin -f acpi_notifier.lang
-%defattr(-,root,root)
 %doc acpi*/AUTHORS
 %doc acpi*/ChangeLog
 %doc acpi*/NEWS
@@ -349,13 +352,11 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/acpi*
 
 %files -n %{oname}-address_keeper-plugin -f address_keeper.lang
-%defattr(-,root,root)
 %doc address_keeper*/AUTHORS
 %doc address_keeper*/ChangeLog
 %{_libdir}/%{oname}/plugins/address_keeper*
 
 %files -n %{oname}-att_remover-plugin
-%defattr(-,root,root)
 %doc att_remover*/AUTHORS
 %doc att_remover*/ChangeLog
 %doc att_remover*/NEWS
@@ -363,7 +364,6 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/att_remover*
 
 %files -n %{oname}-attachwarner-plugin -f attachwarner.lang
-%defattr(-,root,root)
 %doc attachwarner*/AUTHORS
 %doc attachwarner*/ChangeLog
 %doc attachwarner*/NEWS
@@ -372,7 +372,6 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/attachwarner*
 
 %files -n %{oname}-bsfilter-plugin -f bsfilter_plugin.lang
-%defattr(-,root,root)
 %doc attachwarner*/AUTHORS
 %doc attachwarner*/ChangeLog
 %doc attachwarner*/NEWS
@@ -381,14 +380,12 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/bsfilter*
 
 %files -n %{oname}-clamd-plugin -f clamd.lang
-%defattr(-,root,root)
 %doc clamd*/AUTHORS
 %doc clamd*/ChangeLog
 %doc clamd*/README
 %{_libdir}/%{oname}/plugins/clamd*
 
 %files -n %{oname}-fancy-plugin -f fancy.lang
-%defattr(-,root,root)
 %doc attachwarner*/AUTHORS
 %doc attachwarner*/ChangeLog
 %doc attachwarner*/NEWS
@@ -397,20 +394,17 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/fancy*
 
 %files -n %{oname}-fetchinfo-plugin
-%defattr(-,root,root)
 %doc fetchinfo*/ChangeLog
 %doc fetchinfo*/README
 %{_libdir}/%{oname}/plugins/fetchinfo*
 
 %files -n %{oname}-gdata-plugin -f gdata_plugin.lang
-%defattr(-,root,root)
 %doc gdata*/AUTHORS
 %doc gdata*/ChangeLog
 %doc gdata*/README
 %{_libdir}/%{oname}/plugins/gdata*
 
 %files -n %{oname}-gtkhtml2_viewer-plugin -f gtkhtml2_viewer.lang
-%defattr(-,root,root)
 %doc gtkhtml2*/AUTHORS
 %doc gtkhtml2*/ChangeLog
 %doc gtkhtml2*/NEWS
@@ -418,14 +412,12 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/gtkhtml2_viewer*
 
 %files -n %{oname}-mailmbox-plugin
-%defattr(-,root,root)
 %doc mailmbox*/AUTHORS
 %doc mailmbox*/ChangeLog
 %doc mailmbox*/README
 %{_libdir}/%{oname}/plugins/mailmbox*
 
 %files -n %{oname}-newmail-plugin
-%defattr(-,root,root)
 %doc newmail*/AUTHORS
 %doc newmail*/ChangeLog
 %doc newmail*/NEWS
@@ -433,7 +425,6 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/newmail*
 
 %files -n %{oname}-notification-plugin -f notification_plugin.lang
-%defattr(-,root,root)
 %doc notif*/AUTHORS
 %doc notif*/ChangeLog
 %doc notif*/NEWS
@@ -441,13 +432,17 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/noti*
 
 %files -n %{oname}-notification-plugin-devel
-%defattr(-,root,root)
 %dir %{_includedir}/%{oname}/plugins/notification_plugin
 %dir %{_includedir}/%{oname}/plugins/notification_plugin/gtkhotkey
 %{_includedir}/%{oname}/plugins/notification_plugin/gtkhotkey/*.h
 
+%files -n %{oname}-pdfviewer-plugin -f pdf_viewer.lang
+%doc pdf_viewer*/AUTHORS
+%doc pdf_viewer*/ChangeLog
+%doc pdf_viewer*/README
+%{_libdir}/%{oname}/plugins/pdf_viewer*
+
 %files -n %{oname}-perl-plugin
-%defattr(-,root,root)
 %doc perl*/AUTHORS
 %doc perl*/ChangeLog
 %doc perl*/NEWS
@@ -456,7 +451,6 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/perl*
 
 %files -n %{oname}-python-plugin -f python_plugin.lang
-%defattr(-,root,root)
 %doc python*/AUTHORS
 %doc python*/ChangeLog
 %doc python*/README
@@ -469,15 +463,12 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/rssyl*
 
 %files -n %{oname}-spam_report-plugin -f spam_report.lang
-%defattr(-,root,root)
 %{_libdir}/%{oname}/plugins/spamreport*
 
 %files -n %{oname}-tnef_parse-plugin -f tnef_parse.lang
-%defattr(-,root,root)
 %{_libdir}/%{oname}/plugins/tnef_parse*
 
 %files -n %{oname}-vcalendar-plugin -f vcalendar.lang
-%defattr(-,root,root)
 %doc vcalendar*/AUTHORS
 %doc vcalendar*/ChangeLog
 %doc vcalendar*/NEWS
@@ -485,5 +476,4 @@ rm -rf %{buildroot}
 %{_libdir}/%{oname}/plugins/vcalendar*
 
 %files -n %{oname}-vcalendar-plugin-devel
-%defattr(-,root,root)
 %{_includedir}/%{oname}/plugins/vcalendar/vcal_interface.h
