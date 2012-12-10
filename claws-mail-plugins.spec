@@ -1,20 +1,20 @@
 %define oname claws-mail
 %define cvs %nil
 %define _disable_ld_no_undefined 1
-%define claws_version %{version}
+%define claws_version 1:%{version}
 
 Summary:	This package contains additional plugins for %{oname}
 Name:		%{oname}-plugins
-Version:	3.8.1
+Version:	3.9.0
 Release:	1
+Epoch:		1
 Group:		Networking/Mail
 License:	GPL
 URL:		http://www.claws-mail.org/plugins/downloads
 Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
 Patch1:		claws-mail-plugins-3.7.10-perl.patch
-Epoch:		1
-BuildRequires:	claws-mail-devel = 1:%{claws_version}
-BuildRequires:	claws-mail = 1:%{claws_version}
+BuildRequires:	claws-mail-devel = %{claws_version}
+BuildRequires:	claws-mail = %{claws_version}
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	ghostscript
@@ -26,7 +26,8 @@ BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libgdata)
 BuildRequires:	pkgconfig(libgtkhtml-2.0)
 BuildRequires:	pkgconfig(libnotify)
-BuildRequires:	pkgconfig(librapi2)
+#Disable for now, synce-plugin is not built anyway
+#BuildRequires:	pkgconfig(librapi2)
 BuildRequires:	pkgconfig(poppler)
 BuildRequires:	pkgconfig(poppler-glib)
 BuildRequires:	pkgconfig(pygtk-2.0)
@@ -58,8 +59,6 @@ This package contains additional plugins for %{oname}:
 Summary:	This plugin enables mail notification via LEDs on some laptops
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Obsoletes:	sylpheed-claws-acpi-plugin < %{claws_version}
-Provides:	sylpheed-claws-acpi-plugin
 
 %description -n %{oname}-acpi-plugin
 This plugin for %{oname} enables mail notification via LEDs
@@ -79,8 +78,6 @@ address book to avoid unwanted duplicates.
 Summary:	This plugin for %{oname} enables the removal of attachments
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Obsoletes:	sylpheed-claws-att_remover-plugin < %{claws_version}
-Provides:	sylpheed-claws-att_remover-plugin
 
 %description -n %{oname}-att_remover-plugin
 This plugin for %{oname} enables the removal of attachments.
@@ -89,10 +86,6 @@ This plugin for %{oname} enables the removal of attachments.
 Summary:	This plugin for %{oname} enables attachwarner
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
-Provides:	sylpheed-claws-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws-gtkhtml2_viewer-plugin < %{claws_version}
 
 %description -n %{oname}-attachwarner-plugin
 This %{oname} plugin provides attachwarner.
@@ -128,10 +121,6 @@ Renders HTML e-mail using the WebKit library
 Summary:	This plugin inserts headers containing some download information
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-fetchinfo-plugin
-Obsoletes:	sylpheed-claws2-fetchinfo-plugin < %{claws_version}
-Provides:	sylpheed-claws-fetchinfo-plugin
-Obsoletes:	sylpheed-claws-fetchinfo-plugin < %{claws_version}
 
 %description -n %{oname}-fetchinfo-plugin
 This plugin for %{oname} inserts headers containing some download
@@ -151,10 +140,6 @@ feature is inclusion of Google contacts into the address completion.
 Summary:	This plugin for %{oname} enables gtkhtml2 viewer
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws2-gtkhtml2_viewer-plugin < %{claws_version}
-Provides:	sylpheed-claws-gtkhtml2_viewer-plugin
-Obsoletes:	sylpheed-claws-gtkhtml2_viewer-plugin < %{claws_version}
 
 %description -n %{oname}-gtkhtml2_viewer-plugin
 This %{oname} plugin provides gtkhtml2 viewer.
@@ -163,10 +148,6 @@ This %{oname} plugin provides gtkhtml2 viewer.
 Summary:	This plugin provides direct access to mbox folders
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-mailmbox-plugin
-Obsoletes:	sylpheed-claws2-mailmbox-plugin < %{claws_version}
-Provides:	sylpheed-claws-mailmbox-plugin
-Obsoletes:	sylpheed-claws-mailmbox-plugin < %{claws_version}
 
 %description -n %{oname}-mailmbox-plugin
 This plugin for %{oname} provides direct access to mbox folders.
@@ -175,8 +156,6 @@ This plugin for %{oname} provides direct access to mbox folders.
 Summary:	This plugin can write a summary to a log file
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Obsoletes:	sylpheed-claws-newmail-plugin < %{claws_version}
-Provides:	sylpheed-claws-newmail-plugin
 
 %description -n %{oname}-newmail-plugin
 This plugin for %{oname} can write a summary to a log file upon
@@ -186,8 +165,6 @@ receiving new mail. It defaults to ~/Mail/NewLog.
 Summary:	This plugin notify from new mail
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Obsoletes:	sylpheed-claws-notification-plugin < %{claws_version}
-Provides:	sylpheed-claws-notification-plugin
 
 %description -n %{oname}-notification-plugin
 This plugin for %{oname} notify from new incoming mail.
@@ -212,10 +189,6 @@ This %{oname} plugin This plugin handles PDF and Postscript attachments.
 Summary:	Perl interface to %{oname}s' filtering mechanism
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-perl-plugin
-Obsoletes:	sylpheed-claws2-perl-plugin < %{claws_version}
-Provides:	sylpheed-claws-perl_plugin-plugin
-Obsoletes:	sylpheed-claws-perl_plugin-plugin < %{claws_version}
 
 %description -n %{oname}-perl-plugin
 This plugin is intended to extend the filtering possibilities
@@ -235,8 +208,6 @@ This plugin offers a Python scripting access to %{oname}.
 Summary:	This plugin allows you to read your favorite newsfeeds in %{oname}
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Obsoletes:	sylpheed-claws-rssyl-plugin < %{claws_version}
-Provides:	sylpheed-claws-rssyl-plugin
 
 %description -n %{oname}-rssyl-plugin
 This plugin allows you to read your favorite newsfeeds in %{oname}.
@@ -246,10 +217,6 @@ RSS 1.0, 2.0 and Atom feeds are currently supported.
 Summary:	This plugin for %{oname} enables spamreport
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-spam_report-plugin
-Obsoletes:	sylpheed-claws2-spam_report-plugin < %{claws_version}
-Provides:	sylpheed-claws-spam_report-plugin
-Obsoletes:	sylpheed-claws-spam_report-plugin < %{claws_version}
 
 %description -n %{oname}-spam_report-plugin
 This %{oname} plugin provides spamreport.
@@ -258,10 +225,6 @@ This %{oname} plugin provides spamreport.
 Summary:	This plugin for %{oname} enables parsing MS-TNEF attachments
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-tnef_parse-plugin
-Obsoletes:	sylpheed-claws2-tnef_parse-plugin < %{claws_version}
-Provides:	sylpheed-claws-tnef_parse-plugin
-Obsoletes:	sylpheed-claws-tnef_parse-plugin < %{claws_version}
 
 %description -n %{oname}-tnef_parse-plugin
 This %{oname} plugin enables parsing MS-TNEF attachments.
@@ -270,10 +233,6 @@ This %{oname} plugin enables parsing MS-TNEF attachments.
 Summary:	This plugin for %{oname} enables vCalendar message handling
 Group:		Networking/Mail
 Requires:	%{oname} >= %{claws_version}
-Provides:	sylpheed-claws2-vcalendar-plugin
-Obsoletes:	sylpheed-claws2-vcalendar-plugin < %{claws_version}
-Provides:	sylpheed-claws-vcalendar-plugin
-Obsoletes:	sylpheed-claws-vcalendar-plugin < %{claws_version}
 
 %description -n %{oname}-vcalendar-plugin
 This %{oname} plugin handles the vCalendar format (or rather, the
@@ -307,8 +266,6 @@ for i in `find ./* -maxdepth 0  -type d`
 done
 
 %install
-rm -rf %{buildroot}
-
 CLAWS_MAIL_PLUGINDIR=$(pkg-config --variable=plugindir claws-mail)
 
 for i in `find ./* -maxdepth 0  -type d`
@@ -334,6 +291,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %find_lang bsfilter_plugin
 %find_lang clamd
 %find_lang fancy
+%find_lang fetchinfo-plugin
 %find_lang gdata_plugin
 %find_lang gtkhtml2_viewer
 %find_lang notification_plugin
@@ -393,7 +351,7 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 %doc attachwarner*/TODO
 %{_libdir}/%{oname}/plugins/fancy*
 
-%files -n %{oname}-fetchinfo-plugin
+%files -n %{oname}-fetchinfo-plugin -f fetchinfo-plugin.lang
 %doc fetchinfo*/ChangeLog
 %doc fetchinfo*/README
 %{_libdir}/%{oname}/plugins/fetchinfo*
@@ -477,3 +435,4 @@ chmod 644 vcalendar*/AUTHORS vcalendar*/COPYING vcalendar*/INSTALL vcalendar*/NE
 
 %files -n %{oname}-vcalendar-plugin-devel
 %{_includedir}/%{oname}/plugins/vcalendar/vcal_interface.h
+

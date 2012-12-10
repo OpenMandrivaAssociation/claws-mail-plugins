@@ -1,6 +1,6 @@
 diff -urN claws-mail-extra-plugins-3.7.10/perl_plugin-0.9.18/configure claws-mail-extra-plugins-3.7.10-patched/perl_plugin-0.9.18/configure
---- claws-mail-extra-plugins-3.7.10/perl_plugin-0.9.19/configure	2011-08-27 19:14:06.000000000 +1100
-+++ claws-mail-extra-plugins-3.7.10-patched/perl_plugin-0.9.19/configure	2011-11-09 00:55:40.917821657 +1100
+--- claws-mail-extra-plugins-3.7.10/perl_plugin-0.9.20/configure	2011-08-27 19:14:06.000000000 +1100
++++ claws-mail-extra-plugins-3.7.10-patched/perl_plugin-0.9.20/configure	2011-11-09 00:55:40.917821657 +1100
 @@ -11892,7 +11892,7 @@
  $as_echo_n "checking for Perl compile flags... " >&6; }
  PERL_CFLAGS=`$PERL_PATH -MExtUtils::Embed -e ccopts`
