@@ -10,7 +10,7 @@ Release:	1
 Epoch:		1
 Group:		Networking/Mail
 License:	GPL
-URL:		http://www.claws-mail.org/plugins/downloads
+URL:		https://www.claws-mail.org/plugins/downloads
 Source0:	http://downloads.sourceforge.net/sylpheed-claws/%{oname}-extra-plugins-%{version}%{cvs}.tar.bz2
 Patch1:		claws-mail-plugins-3.7.10-perl.patch
 BuildRequires:	claws-mail-devel = %{claws_version}
